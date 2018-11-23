@@ -1,4 +1,10 @@
 import {Component} from '@angular/core';
+// 具名导入
+import Student, {HOST as host, add, Foo, Bar, ooxx} from './myModule';
+
+console.log(host);
+console.log(add(1, 1));
+console.log(Bar);
 
 // 变量、常量
 let name = 'tom';
@@ -56,6 +62,178 @@ function greeting2(person: Person) {
 
 const myname = greeting2({firstName: 'tom', lastName: 'cruise'});
 console.log(myname);
+
+// 接口 interface
+interface Person3 {
+  firstName: string;
+  lastName: string;
+}
+
+function greeting3(person: Person3) {
+  return 'Hello, ' + person.firstName + ' ' + person.lastName;
+}
+
+greeting3({firstName: 'tom', lastName: 'jerry'});
+
+// 类 class
+class Greeter { // 类中三种成员：属性、构造函数、方法
+  greeting: string; // 属性
+
+  constructor(msg: string) { // 构造函数：通常用于属性初始化
+    this.greeting = msg;
+  }
+
+  greet() { // 方法
+    return 'Hello, ' + this.greeting;
+  }
+}
+
+const greeter = new Greeter('world');
+console.log(greeter.greet());
+
+// 继承
+class Animal {
+  // name: string;
+
+  constructor(protected myName: string) {
+  }
+
+  move(distance: number = 0) {
+    console.log(`${this.myName}移动了${distance}米`);
+  }
+}
+
+class Dog extends Animal {
+  // readonly age: number; // 只读属性，只能在声明时或者构造函数中赋值
+
+  constructor(theName: string, readonly age: number) {
+    super(theName); // 使用super()调用父类构造函数
+  }
+
+  bark() {
+    console.log(this.myName);
+    console.log('汪汪！');
+  }
+
+  move(distance: number = 5) { // 方法重写overiding
+    console.log('奔跑');
+    super.move(distance); // 使用super.xx访问父类成员
+  }
+
+  move(a, b) { // 方法重载
+    return a + b;
+  }
+}
+
+const dog = new Dog('汪星人', 2);
+
+dog.bark();
+dog.move();
+dog.move(1, 1);
+
+// console.log(dog.name);
+
+interface Point {
+  x: number;
+  y: number;
+}
+
+// 静态成员
+class Grid {
+  // origin原点是所有网格都会用到的属性
+  static origin = {x: 0, y: 0};
+
+  distance(point: Point) {
+    const xDist = point.x - Grid.origin.x;
+    const yDist = point.y - Grid.origin.y;
+    return Math.sqrt(xDist * xDist + yDist * yDist);
+  }
+}
+
+const grid = new Grid();
+console.log(Grid.origin.x, Grid.origin.y);
+console.log(grid.distance({x: 3, y: 4}));
+
+// 存储器
+class Employee {
+  private _fullName: string;
+  get fullName(): string {
+    return this._fullName;
+  }
+
+  set fullName(value: string) {
+    console.log('管理员修改了雇员名称');
+    this._fullName = value;
+  }
+}
+
+const e = new Employee();
+e.fullName = 'James Harden';
+console.log(e.fullName);
+
+// 函数参数必要性
+function buildName(first: string = 'James', last?: string = 'Harden') {
+  return first + last;
+}
+
+buildName('tom', 'jerry');
+buildName('tom'); // 可选参 last?
+buildName(); // 默认值
+
+// 不使用泛型
+function noGeneric1(arg: number): number {
+  return arg;
+}
+
+function noGeneric2(arg: any): any {
+  return arg;
+}
+
+interface Lengthwise {
+  length: number;
+}
+
+// 使用泛型
+// T称为类型变量，它是一种特殊的变量，只用于表示类型而不是值
+function useGeneric<T extends Lengthwise>(arg: T): T {
+  console.log(arg.length);
+  return arg;
+}
+
+// 用法1：完整语法
+useGeneric<string>('myString'); // myString
+// 用法2：利用类型推论省略<number>
+useGeneric({length: 1, other: 'bla'}); // 1
+
+// 泛型接口
+interface Result<T, U> {
+  success: boolean;
+  data?: T;
+  message?: U;
+}
+
+interface User {
+  id: number;
+  name: string;
+}
+
+const r: Result<User> = {
+  success: true,
+  data: {id: 1, name: 'tom'}
+};
+
+// 泛型类
+class Result<T> {
+  constructor(public success: boolean, public data: T) {
+  }
+}
+
+const r2: Result<User> = new Result<User>(true, {id: 1, name: 'tom'});
+console.log(r2.success);
+console.log(r2.data);
+
+// 泛型约束
+
 
 @Component({
   selector: 'app-root',

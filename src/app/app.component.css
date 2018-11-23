@@ -1,0 +1,27 @@
+.logo {
+  width: 150px;
+  margin: 110px auto 30px;
+}
+
+.logo img {
+  width: 150px;
+}
+
+.nav {
+  margin: 0 auto;
+  width: 372px;
+  text-align: center;
+}
+
+.nav > a {
+  display: inline-block;
+  margin: 0 15px;
+  padding: 16px 12px;
+  color: #b7b9bd;
+  font-size: 18px;
+}
+
+.nav > a.active {
+  color: #00aae5 !important;
+  border-bottom: 1px solid #00aae5;
+}
