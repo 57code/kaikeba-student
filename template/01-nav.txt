@@ -1,0 +1,20 @@
+-----------------------Ä£°å----------------------
+<!--µÇÂ¼¡¢×¢²áÇÐ»»µ¼º½-->
+<div class="logo">
+  <a href="http://www.kaikeba.com/">
+    <img src="http://student.kaikeba.com/assets/blue_logo-57d711624a.png">
+  </a>
+</div>
+<div class="nav">
+  <a routerLink="login" routerLinkActive="active">µÇÂ¼</a>
+  <a routerLink="register" routerLinkActive="active">×¢²á</a>
+</div>
+
+
+-------------------ÑùÊ½------------------------------
+.logo{width: 150px; margin: 110px auto 30px;}
+.logo img { width: 150px;}
+.nav{ margin: 0 auto; width: 372px; text-align: center;}
+.nav>a{ display: inline-block; margin: 0 15px;
+  padding: 16px 12px; color: #b7b9bd; font-size: 18px;}
+.nav>a.active{ color: #00aae5 !important; border-bottom: 1px solid #00aae5;}

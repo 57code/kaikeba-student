@@ -1,0 +1,87 @@
+-----------------------模板----------------------
+<form (ngSubmit)="register()" #form="ngForm">
+
+  <!--电话号码：增加已存在的异步校验-->
+  <div class="form-group">
+    <input type="text" class="form-control"
+           name="phone" [(ngModel)]="model.phone"
+           #phone="ngModel" required pattern="1[3,5,7,8]\d{9}"
+           placeholder="请输入手机号">
+    <div class="error" [hidden]="phone.valid || phone.untouched">
+      <span *ngIf="phone?.errors?.required">请输入手机号</span>
+      <span *ngIf="phone?.errors?.pattern">手机号码格式不正确</span>
+    </div>
+  </div>
+
+  <!--图形验证码-->
+  <div class="form-group">
+    <input type="text" class="form-control"
+           name="codeImg" [(ngModel)]="model.codeImg"
+           #codeImg="ngModel"
+           required pattern="[a-zA-Z0-9]{4}"
+           placeholder="图形验证码">
+    <div class="error" [hidden]="codeImg.valid || codeImg.untouched">
+      <span *ngIf="codeImg?.errors?.required">请输入图形验证码</span>
+      <span *ngIf="codeImg?.errors?.pattern">图形验证码格式不正确</span>
+    </div>
+  </div>
+
+  <!--短信验证码-->
+  <div class="form-group">
+    <input type="text" class="form-control"
+           name="codeSms" [(ngModel)]="model.codeSms"
+           #codeSms="ngModel"
+           required pattern="\d{6}"
+           placeholder="短信验证码">
+    <div class="error" [hidden]="codeSms.valid || codeSms.untouched">
+      <span *ngIf="codeSms?.errors?.required">请输入短信验证码</span>
+      <span *ngIf="codeSms?.errors?.pattern">短信验证码格式不正确</span>
+    </div>
+  </div>
+
+  <!--密码-->
+  <div class="form-group">
+    <input type="password" class="form-control"
+           #password="ngModel" required
+           name="password" [(ngModel)]="model.password"
+           placeholder="请输入密码">
+    <div class="error" [hidden]="password.valid || password.untouched">
+      <span *ngIf="password?.errors?.required">请输入密码</span>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary"
+          [disabled]="form.invalid">同意协议并注册
+  </button>
+</form>
+
+
+--------------------样式login.component.css-----------------------
+form{
+  width: 372px;
+  margin: 40px auto;
+}
+
+.form-group input{
+  height: 44px;
+}
+
+form button{
+  background: #00aae5;
+  border: 0;
+  width: 100%;
+  height: 44px;
+}
+
+
+---------------------------图形验证码部分-----------------------------
+.code-img-group { display: flex; }
+.code-img-group>a {
+  width: 100px; text-align: center; line-height: 42px;
+  color: #CCC; cursor: pointer;}
+.code-img-group>img { margin: 0 5px 0 10px;}
+
+
+----------------------------短信验证码部分---------------------------
+#btn-code-sms { width: 256px; margin-left: 10px; }
+#btn-code-sms[disabled]{ background: silver;}

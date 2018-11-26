@@ -1,0 +1,69 @@
+-----------------------模板----------------------
+<form>
+  <div class="form-group">
+    <input type="text" class="form-control" 
+	name="phone" placeholder="请输入手机号">
+  </div>
+
+  <div class="form-group">
+    <input type="password" class="form-control" 
+	name="password" placeholder="请输入密码">
+  </div>
+
+  <div class="cb-group">
+    <label>
+      <input type="checkbox">
+      <span>7天自动登录</span>
+    </label>
+    <a href="">忘记密码</a>
+  </div>
+
+  <button type="submit" class="btn btn-primary">登录</button>
+</form>
+
+-----------------------全局样式styles.css----------------------------
+@import url(https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css);
+a{
+  text-decoration: none;
+}
+h1,h2,h3,ul,p{
+  margin: 0;
+  padding: 0;
+}
+ul{
+  list-style: none;
+}
+
+--------------------样式login.component.css-----------------------
+form{
+  width: 372px;
+  margin: 40px auto;
+}
+
+.form-group input{
+  height: 44px;
+}
+
+form button{
+  background: #00aae5;
+  border: 0;
+  width: 100%;
+  height: 44px;
+}
+.cb-group{
+  overflow: hidden;
+  margin: 20px 0;
+}
+.cb-group>label,
+.cb-group input,
+.cb-group span{
+  float: left;
+  font-weight: normal;
+}
+.cb-group a{
+  float: right;
+}
+.cb-group span,
+.cb-group a{
+  color: #999;
+}
