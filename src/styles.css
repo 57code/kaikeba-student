@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@import url(https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css);
+
+a {
+  text-decoration: none;
+}
+
+h1, h2, h3, ul, p {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}

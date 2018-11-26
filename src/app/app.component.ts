@@ -120,8 +120,23 @@ class Dog extends Animal {
     super.move(distance); // 使用super.xx访问父类成员
   }
 
-  move(a, b) { // 方法重载
-    return a + b;
+  eat(food: string): boolean;
+  eat(food: { name: string, amount: number }): {canEat: boolean, msg: string};
+  eat(food: string | { name: string, amount: number }): any {
+    if (typeof food === 'string') { // 方法1实现
+      return food === 'bone';
+    } else { // 方法2实现
+      const canEat = food.name === 'bone' && food.amount < 3;
+      let msg = '';
+      if (food.name !== 'bone') {
+        msg += '我只吃骨头！';
+      }
+
+      if (food.amount >= 3) {
+        msg += '我只能吃两根！';
+      }
+      return {canEat, msg};
+    }
   }
 }
 
@@ -129,7 +144,6 @@ const dog = new Dog('汪星人', 2);
 
 dog.bark();
 dog.move();
-dog.move(1, 1);
 
 // console.log(dog.name);
 
@@ -172,7 +186,7 @@ e.fullName = 'James Harden';
 console.log(e.fullName);
 
 // 函数参数必要性
-function buildName(first: string = 'James', last?: string = 'Harden') {
+function buildName(first: string = 'James', last?: string) {
   return first + last;
 }
 
@@ -217,23 +231,23 @@ interface User {
   name: string;
 }
 
-const r: Result<User> = {
+const r: Result<User, string> = {
   success: true,
-  data: {id: 1, name: 'tom'}
+  data: {id: 1, name: 'tom'},
+  message: 'lalala'
 };
 
 // 泛型类
-class Result<T> {
+class Result2<T> {
   constructor(public success: boolean, public data: T) {
   }
 }
 
-const r2: Result<User> = new Result<User>(true, {id: 1, name: 'tom'});
+const r2: Result2<User> = new Result2<User>(true, {id: 1, name: 'tom'});
 console.log(r2.success);
 console.log(r2.data);
 
 // 泛型约束
-
 
 @Component({
   selector: 'app-root',

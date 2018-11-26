@@ -1,3 +1,35 @@
-<h1>
-  login works!
-</h1>
+<form #form="ngForm" (ngSubmit)="login()">
+  <div class="form-group">
+    <!--#phone是模板引用变量-->
+    <input type="text" class="form-control"
+           name="phone" placeholder="请输入手机号"
+           [(ngModel)]="model.phone" #phone="ngModel"
+           required pattern="1[3,5,7,8]\d{9}">
+    <div class="error" [hidden]="phone.valid || phone.untouched">
+      <span *ngIf="phone?.errors?.required">请输入手机号</span>
+      <span *ngIf="phone?.errors?.pattern">手机号格式不正确</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <input type="password" class="form-control"
+           [(ngModel)]="model.password" #password="ngModel"
+           required
+           name="password" placeholder="请输入密码">
+    <div class="error" [hidden]="password.valid || password.untouched">
+      <span *ngIf="password?.errors?.required">请输入密码</span>
+    </div>
+  </div>
+
+  <div class="cb-group">
+    <label>
+      <input type="checkbox">
+      <span>7天自动登录</span>
+    </label>
+    <a href="">忘记密码</a>
+  </div>
+
+  <button type="submit" class="btn btn-primary"
+          [disabled]="form.invalid">登录
+  </button>
+</form>
