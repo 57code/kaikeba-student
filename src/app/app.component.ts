@@ -121,7 +121,7 @@ class Dog extends Animal {
   }
 
   eat(food: string): boolean;
-  eat(food: { name: string, amount: number }): {canEat: boolean, msg: string};
+  eat(food: { name: string, amount: number }): { canEat: boolean, msg: string };
   eat(food: string | { name: string, amount: number }): any {
     if (typeof food === 'string') { // 方法1实现
       return food === 'bone';
@@ -170,14 +170,19 @@ console.log(grid.distance({x: 3, y: 4}));
 
 // 存储器
 class Employee {
-  private _fullName: string;
+  // 封装局部变量
+  // 额外逻辑处理
+  private firstName: string;
+  private lastName: string;
+
   get fullName(): string {
-    return this._fullName;
+    return this.firstName + ' ' + this.lastName;
   }
 
+  // 'tom cruse'
   set fullName(value: string) {
-    console.log('管理员修改了雇员名称');
-    this._fullName = value;
+    this.firstName = value.split(' ')[0];
+    this.lastName = value.split(' ')[1];
   }
 }
 

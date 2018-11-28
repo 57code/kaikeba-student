@@ -1,0 +1,22 @@
+form{
+  width: 372px;
+  margin: 40px auto;
+}
+
+.form-group input{
+  height: 44px;
+}
+
+form button{
+  background: #00aae5;
+  border: 0;
+  width: 100%;
+  height: 44px;
+}
+
+/*图形验证码*/
+.code-img-group { display: flex; }
+.code-img-group>a {
+  width: 100px; text-align: center; line-height: 42px;
+  color: #CCC; cursor: pointer;}
+.code-img-group>img { margin: 0 5px 0 10px;}
