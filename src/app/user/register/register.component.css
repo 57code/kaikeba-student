@@ -1,13 +1,13 @@
-form{
+form {
   width: 372px;
   margin: 40px auto;
 }
 
-.form-group input{
+.form-group input {
   height: 44px;
 }
 
-form button{
+form button {
   background: #00aae5;
   border: 0;
   width: 100%;
@@ -15,8 +15,33 @@ form button{
 }
 
 /*图形验证码*/
-.code-img-group { display: flex; }
-.code-img-group>a {
-  width: 100px; text-align: center; line-height: 42px;
-  color: #CCC; cursor: pointer;}
-.code-img-group>img { margin: 0 5px 0 10px;}
+.code-img-group {
+  display: flex;
+}
+
+.code-img-group > a {
+  width: 100px;
+  text-align: center;
+  line-height: 42px;
+  color: #CCC;
+  cursor: pointer;
+}
+
+.code-img-group > img {
+  margin: 0 5px 0 10px;
+  height: 46px;
+  cursor: pointer;
+}
+
+.code-sms-group {
+  display: flex;
+}
+
+#btn-code-sms {
+  width: 218px;
+  margin-left: 10px;
+}
+
+#btn-code-sms[disabled] {
+  background: silver;
+}

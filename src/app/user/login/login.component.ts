@@ -20,16 +20,12 @@ export class LoginComponent {
     console.log(this.model);
     // 发送请求
     this.userService.login(this.model).subscribe(
-      (result: Result<User>) => {
-        if (result.success) {
+      (result: boolean) => {
+        if (result) {
           alert('登录成功！');
         } else {
           alert('登录失败！');
         }
-      },
-      (error) => {
-        console.log(error);
-        alert('登录失败！');
       }
     );
   }

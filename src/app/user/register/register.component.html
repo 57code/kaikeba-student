@@ -18,27 +18,33 @@
     <div class="code-img-group">
       <input type="text" class="form-control"
              name="codeImg" [(ngModel)]="model.codeImg"
-             #codeImg="ngModel"
+             #codeImg="ngModel" appVerifyCodeImg
              required pattern="[a-zA-Z0-9]{4}"
              placeholder="图形验证码">
-      <img [src]="codeImgSrc" width="90" height="46"
-           (click)="getCodeImg()">
-      <a (click)="getCodeImg()">获取</a>
+      <img [src]="codeImgSrc" (click)="getCodeImg()">
     </div>
 
     <div class="error" [hidden]="codeImg.valid || codeImg.untouched">
       <span *ngIf="codeImg?.errors?.required">请输入图形验证码</span>
       <span *ngIf="codeImg?.errors?.pattern">图形验证码格式不正确</span>
+      <span *ngIf="codeImg?.errors?.verifyCodeImg">图形验证码输入有误</span>
     </div>
   </div>
 
   <!--短信验证码-->
   <div class="form-group">
-    <input type="text" class="form-control"
-           name="codeSms" [(ngModel)]="model.codeSms"
-           #codeSms="ngModel"
-           required pattern="\d{6}"
-           placeholder="短信验证码">
+    <div class="code-sms-group">
+      <input type="text" class="form-control"
+             name="codeSms" [(ngModel)]="model.codeSms"
+             #codeSms="ngModel"
+             required pattern="\d{6}"
+             placeholder="短信验证码">
+      <button type="button" class="btn btn-primary" id="btn-code-sms"
+              [disabled]="phone.invalid || codeImg.invalid || isDisabled"
+              (click)="getCodeSms()">获取短信验证码
+      </button>
+    </div>
+
     <div class="error" [hidden]="codeSms.valid || codeSms.untouched">
       <span *ngIf="codeSms?.errors?.required">请输入短信验证码</span>
       <span *ngIf="codeSms?.errors?.pattern">短信验证码格式不正确</span>

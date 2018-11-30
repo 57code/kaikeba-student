@@ -1,0 +1,31 @@
+---------------course.component.html----------------
+<app-panel panelTitle="我的职业课程">
+  <a class="course-item">
+    <img class="course-bg" width="222px" height="125px"
+         src="http://i.kaikeba.com/33049618645835991433-444x250?imageslim">
+    <div class="shadow"></div>
+    <span class="course-name">《Web全栈架构师》对标百度T6-T7 006期</span>
+    <span class="opt">进入课程主页</span>
+  </a>
+</app-panel>
+
+
+--------------------------------
+.course-item { position: relative; float: left;
+  margin-left: 23px; margin-top: 22px; width: 222px; height: 125px;}
+.shadow { position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5);}
+.course-name { position: absolute; font-size: 20px; color: #fff;
+  line-height: 36px; top: 50%; left: 0; margin-top: -18px; width: 100%;
+  text-align: center; z-index: 2;}
+.opt {  /*display: none;*/
+  position: absolute; top: 50%; left: 50%;
+  margin-top: -17px; margin-left: -70px;
+  width: 140px; height: 35px;
+  font-size: 14px; line-height: 35px; color: #fff;
+  text-align: center; background: #00aae5; border-radius: 4px;}
+
+
+
+
+
