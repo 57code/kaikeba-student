@@ -47,13 +47,15 @@ export class RegisterComponent implements OnInit {
         if (result.success) {
           // 获取成功: 开启60s倒计时，禁用按钮
           this.isDisabled = true;
-          interval(1000).pipe(
-            scan(i => i - 1, 60),
-            take(60)
-          ).subscribe(i => {
+          interval(1000).pipe( // 通过定时器创建Observable
+            scan(i => i - 1, 60), // 设定计数器递减及初始值60
+            take(60) // 执行60次
+          ).subscribe(i => { // 订阅，执行Observable
             if (i > 0) {
+              // 倒计时，变更按钮文本
               this.btnText = i + 's';
             } else {
+              // 倒计时结束，还原按钮文本并解除禁用
               this.btnText = '获取短信验证码';
               this.isDisabled = false;
             }
