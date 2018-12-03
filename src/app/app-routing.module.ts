@@ -1,10 +1,11 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {HomeComponent} from './home/home.component';
 
 // 配置路由
 const routes: Routes = [
   // {path: '**', component: NotFoundComponent},
-  {path: '', pathMatch: 'full', redirectTo: '/user/login'},
+  {path: '', pathMatch: 'full', component: HomeComponent},
   {path: '**', redirectTo: '/user/login'},
 ];
 

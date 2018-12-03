@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {LoginUser} from './login-user';
 import {User, UserService} from '../user.service';
 import {Result} from '../../common/result';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,8 @@ export class LoginComponent {
 
   model: LoginUser;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,
+              private router: Router) {
     this.model = new LoginUser();
   }
 
@@ -22,7 +24,8 @@ export class LoginComponent {
     this.userService.login(this.model).subscribe(
       (result: boolean) => {
         if (result) {
-          alert('登录成功！');
+          // 登录成功，跳转至主页/main
+          this.router.navigate(['/main']);
         } else {
           alert('登录失败！');
         }

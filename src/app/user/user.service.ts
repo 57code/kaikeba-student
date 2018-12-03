@@ -28,18 +28,20 @@ export class UserService {
     return this.http
       .post<Result<User>>(this.url + 'login', user)
       .pipe(
-        map((r: Result<User>) => {
-          if (r.success) {
-            // 缓存用户信息
-            this.user = r.data;
-            // 登录成功
-            return true;
-          } else {
-            return false;
-          }
-        }),
+        map(this.handleLogin),
         catchError(error => of(false))
       );
+  }
+
+  private handleLogin(r: Result<User>) {
+    if (r.success) {
+      // 缓存用户信息
+      this.user = r.data;
+      // 登录成功
+      return true;
+    } else {
+      return false;
+    }
   }
 
   getCodeImg() {
@@ -60,9 +62,22 @@ export class UserService {
 
   // 注册方法
   register(user: RegisterUser) {
-    return this.http.post(this.url + 'register', {
+    return this.http.post<Result<User>>(this.url + 'register', {
       phone: user.phone,
       password: user.password
-    });
+    })
+      .pipe(
+        map(this.handleLogin),
+        catchError(error => of(false))
+      );
+  }
+
+  // 判断当前用户是否登录
+  isLogin() {
+    return this.http.post<Result<User>>(this.url + 'is-login', null)
+      .pipe(
+        map(this.handleLogin),
+        catchError(error => of(false))
+      );
   }
 }

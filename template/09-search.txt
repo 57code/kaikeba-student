@@ -1,0 +1,12 @@
+------------模板更新main.component.html-------------
+<div class="search-box">
+  <input type="text" #keyword (input)="search(keyword.value)">
+  <app-menu *ngIf="searchResult" [data]="searchResult" id="searchResult"></app-menu>
+</div>
+
+
+---------------样式更新styles.css-----------------
+.search-box { position: relative;}
+#search-result .menu{ left: 0; top: 40px; width: 100%; }
+#search-result .menu-item>a { width: auto;
+	overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
