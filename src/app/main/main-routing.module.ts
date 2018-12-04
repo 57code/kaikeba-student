@@ -3,7 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {MainComponent} from './main.component';
 import {UcenterComponent} from './ucenter/ucenter.component';
 import {CourseComponent} from './course/course.component';
-import {CourseComponent as PathComponent} from './ucenter/course/course.component';
+import {CourseComponent as CourseListComponent} from './ucenter/course/course.component';
 import {MessageComponent} from './ucenter/message/message.component';
 import {CommentComponent} from './ucenter/comment/comment.component';
 import {CollectionComponent} from './ucenter/collection/collection.component';
@@ -14,7 +14,7 @@ const routes: Routes = [
     path: 'main', component: MainComponent, children: [
       {
         path: 'ucenter', component: UcenterComponent, children: [
-          {path: 'course', component: PathComponent},
+          {path: 'course', component: CourseListComponent},
           {path: 'message', component: MessageComponent},
           {path: 'comment', component: CommentComponent},
           {path: 'collection', component: CollectionComponent},
