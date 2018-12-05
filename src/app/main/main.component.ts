@@ -72,6 +72,8 @@ export class MainComponent implements OnInit {
               type: MenuItemType.Link
             };
           });
+        } else {
+          this.searchResult = null;
         }
       }
     );
