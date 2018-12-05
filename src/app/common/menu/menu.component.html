@@ -1,0 +1,11 @@
+<div class="menu">
+  <div *ngFor="let d of data" [ngSwitch]="d.type" class="menu-item">
+    <!--外部链接-->
+    <a *ngSwitchCase="'link'" [href]="d.url">{{d.label}}</a>
+    <!--内部链接-->
+    <a *ngSwitchCase="'route'" [routerLink]="d.url">{{d.label}}</a>
+    <!--回调函数-->
+    <a *ngSwitchCase="'callback'" (click)="d.cb()">{{d.label}}</a>
+  </div>
+
+</div>
