@@ -1,78 +1,80 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from '../user/user.service';
+import {MenuItem, MenuItemType} from '../common/menu/menu.component';
+import {UserCenterService} from './ucenter/user-center.service';
+import {of, Subject} from 'rxjs';
+import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
+import {Result} from '../common/result';
 
 @Component({
   selector: 'app-main',
-  template: `
-    <!--<p>-->
-      <!--<a routerLink="ucenter">ucenter</a>-->
-      <!--<a routerLink="course/1">course</a>-->
-      <!--&lt;!&ndash;动态传参&ndash;&gt;-->
-      <!--<a [routerLink]="['course', 1, {foo: 'foo'}]">course</a>-->
-      <!--<a [routerLink]="['course', 1, {foo: 'foo'}]"-->
-         <!--[queryParams]="{bar:'bar'}">course</a>-->
-      <!--<input type="text" #courseId>-->
-      <!--<button (click)="gotoCourse(courseId.value)">course</button>-->
-    <!--</p>-->
-
-    <div class="wrapper">
-      <!--顶部导航-->
-      <div class="top-nav">
-        <div class="wrap">
-          <a class="logo" href="http://www.kaikeba.com/"></a>
-          <ul class="nav-menu">
-            <li><a href>首页</a></li>
-            <li><a href>学吧</a></li>
-            <li><a href>APP</a></li>
-            <li><a href>关于我们</a></li>
-          </ul>
-          <div class="r-menu">
-            <div class="search-box">
-              <input type="text">
-            </div>
-            <div class="user-box">
-              <img src="http://kkbconsole2.kaikeba.com/statics/images/avatar_100_100.png"
-                   class="user-avatar" width="100" height="100">
-              <div class="menu"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!--内容区-->
-      <div class="content">
-        <div class="wrap">
-          <router-outlet></router-outlet>
-        </div>
-      </div>
-    </div>
-  `,
-  styles: [`
-    :host{ background: #f5f5f5; min-height: 400px; display: block; }
-    .top-nav { background: white; }
-    .wrap{ width: 1200px; height: 80px;
-      margin: 0 auto; padding: 15px 0;}
-    .logo{ float: left; height: 49px; width: 106px;
-      background: url(http://student.kaikeba.com/assets/blue_logo-57d711624a.png) no-repeat;
-      background-size: 100% auto;}
-    ul.nav-menu { float: left; margin-left: 100px; }
-    ul.nav-menu>li { float: left; }
-    ul.nav-menu>li>a { display: block; height: 50px; line-height: 50px;
-      padding: 0px 30px; color: black; font-size: 16px; }
-    .r-menu { float: right; height: 50px;}
-    .search-box { float: left; margin-top: 10px;}
-    .user-box { float: left;}
-    .search-box input { border: 0; background: #f5f5f5; border-radius: 15px;
-      height: 30px; width: 150px; outline: 0; padding: 0 10px; }
-    .user-avatar { background: #ececec; width: 40px; height: 40px;
-      border-radius: 50%; margin: 5px 0 5px 30px; }
-  `]
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
+  showMenu = false;
+  showUserMenu = false;
+
+  // 菜单数据
+  menuData: MenuItem[] = [
+    {label: '设计学吧', url: 'http://uxd.kaikeba.com', type: MenuItemType.Link},
+    {label: '产品学吧', url: 'http://pm.kaikeba.com', type: MenuItemType.Link},
+  ];
+  userMenuData: MenuItem[] = [
+    {label: '我的课程', url: 'usercenter/course', type: MenuItemType.Route},
+    {label: '我的消息', url: 'usercenter/message', type: MenuItemType.Route},
+    {
+      label: '退出', cb: () => {
+        // 注销并跳转至登录页
+        // ...
+        this.us.logout().subscribe(
+          (result: boolean) => {
+            if (result) {
+              // 去登陆页面
+              this.router.navigate(['/user/login']);
+            }
+          }
+        );
+      }, type: MenuItemType.Callback
+    },
+  ];
+
+  // 搜索课程结果
+  searchResult: MenuItem[];
+  subject: Subject<string> = new Subject<string>();
 
   constructor(private router: Router,
-              private us: UserService) {
+              private us: UserService,
+              private ucs: UserCenterService) {
+    // 设置subject
+    this.subject.pipe(
+      debounceTime(300), // 防抖
+      distinctUntilChanged(), // 去重：加入紧挨着两次输入值相同则不发送
+      switchMap(keyword => { // 将Observable<string>类型转换为Observable<Result<any>>
+        // 判空
+        if (keyword === '') {
+          return of(null);
+        }
+        return this.ucs.searchCourse(keyword);
+      })
+    ).subscribe(// 搜索结果处理
+      (result: Result<any[]>) => {
+        if (result && result.success) {
+          // 映射结果结构为MenuItem
+          // 这里有另外两个处理方式：
+          // 方式一：后台直接按照这个格式返回，最佳方式
+          // 方式二：服务中做map映射结果为MenuItem[], 次佳方式
+          this.searchResult = result.data.map(item => {
+            return {
+              label: item.name,
+              url: item.url,
+              type: MenuItemType.Link
+            };
+          });
+        }
+      }
+    );
   }
 
   ngOnInit() {
@@ -87,5 +89,9 @@ export class MainComponent implements OnInit {
     }], {
       queryParams: {foo: 'bar'}
     });
+  }
+
+  search(keyword) {
+    this.subject.next(keyword);
   }
 }

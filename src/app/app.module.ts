@@ -6,7 +6,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {UserModule} from './user/user.module';
 import {RxjsModule} from './rxjs/rxjs.module';
-import { HomeComponent } from './home/home.component';
+import {HomeComponent} from './home/home.component';
 import {MainModule} from './main/main.module';
 
 @NgModule({

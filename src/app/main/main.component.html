@@ -1,0 +1,50 @@
+<!--<p>-->
+<!--<a routerLink="ucenter">ucenter</a>-->
+<!--<a routerLink="course/1">course</a>-->
+<!--&lt;!&ndash;动态传参&ndash;&gt;-->
+<!--<a [routerLink]="['course', 1, {foo: 'foo'}]">course</a>-->
+<!--<a [routerLink]="['course', 1, {foo: 'foo'}]"-->
+<!--[queryParams]="{bar:'bar'}">course</a>-->
+<!--<input type="text" #courseId>-->
+<!--<button (click)="gotoCourse(courseId.value)">course</button>-->
+<!--</p>-->
+
+<div class="wrapper">
+  <!--顶部导航-->
+  <div class="top-nav">
+    <div class="wrap">
+      <a class="logo" href="http://www.kaikeba.com/"></a>
+      <ul class="nav-menu">
+        <li><a href>首页</a></li>
+        <li (mouseenter)="showMenu=true" (mouseleave)="showMenu=false">
+          <a href>学吧</a>
+          <app-kkb-menu *ngIf="showMenu" [data]="menuData"></app-kkb-menu>
+        </li>
+        <li><a href>APP</a></li>
+        <li><a href>关于我们</a></li>
+      </ul>
+      <div class="r-menu">
+        <div class="search-box">
+          <input type="text" #keyword (input)="search(keyword.value)">
+          <!--结果列表-->
+          <app-kkb-menu *ngIf="searchResult" [data]="searchResult"
+                        id="searchResult"></app-kkb-menu>
+        </div>
+        <div class="user-box" (mouseenter)="showUserMenu=true" (mouseleave)="showUserMenu=false">
+          <img src="http://kkbconsole2.kaikeba.com/statics/images/avatar_100_100.png"
+               class="user-avatar" width="100" height="100">
+          <div class="user-menu" *ngIf="showUserMenu">
+            <app-kkb-menu [data]="userMenuData"></app-kkb-menu>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--内容区-->
+  <div class="content">
+    <div class="wrap">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

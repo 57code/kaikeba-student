@@ -13,3 +13,15 @@ h1, h2, h3, ul, p {
 ul {
   list-style: none;
 }
+
+#searchResult .menu {
+  width: 176px;
+  top: 40px;
+}
+
+#searchResult .menu-item a {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

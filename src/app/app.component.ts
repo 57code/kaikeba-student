@@ -2,9 +2,9 @@ import {Component} from '@angular/core';
 // 具名导入
 import Student, {HOST as host, add, Foo, Bar, ooxx} from './myModule';
 
-console.log(host);
-console.log(add(1, 1));
-console.log(Bar);
+// console.log(host);
+// console.log(add(1, 1));
+// console.log(Bar);
 
 // 变量、常量
 let name = 'tom';
@@ -34,8 +34,8 @@ list[1] = 100;
 enum Color {Red = 1, Green = 2, Blue = 3}
 
 const c: Color = Color.Blue;
-console.log(c); // 3
-console.log(Color[1]); // Red
+// console.log(c); // 3
+// console.log(Color[1]); // Red
 
 
 // 函数中使用类型约束
@@ -61,7 +61,7 @@ function greeting2(person: Person) {
 }
 
 const myname = greeting2({firstName: 'tom', lastName: 'cruise'});
-console.log(myname);
+// console.log(myname);
 
 // 接口 interface
 interface Person3 {
@@ -89,7 +89,7 @@ class Greeter { // 类中三种成员：属性、构造函数、方法
 }
 
 const greeter = new Greeter('world');
-console.log(greeter.greet());
+// console.log(greeter.greet());
 
 // 继承
 class Animal {
@@ -142,8 +142,8 @@ class Dog extends Animal {
 
 const dog = new Dog('汪星人', 2);
 
-dog.bark();
-dog.move();
+// dog.bark();
+// dog.move();
 
 // console.log(dog.name);
 
@@ -165,8 +165,8 @@ class Grid {
 }
 
 const grid = new Grid();
-console.log(Grid.origin.x, Grid.origin.y);
-console.log(grid.distance({x: 3, y: 4}));
+// console.log(Grid.origin.x, Grid.origin.y);
+// console.log(grid.distance({x: 3, y: 4}));
 
 // 存储器
 class Employee {
@@ -188,7 +188,7 @@ class Employee {
 
 const e = new Employee();
 e.fullName = 'James Harden';
-console.log(e.fullName);
+// console.log(e.fullName);
 
 // 函数参数必要性
 function buildName(first: string = 'James', last?: string) {
@@ -215,7 +215,7 @@ interface Lengthwise {
 // 使用泛型
 // T称为类型变量，它是一种特殊的变量，只用于表示类型而不是值
 function useGeneric<T extends Lengthwise>(arg: T): T {
-  console.log(arg.length);
+  // console.log(arg.length);
   return arg;
 }
 
@@ -249,8 +249,8 @@ class Result2<T> {
 }
 
 const r2: Result2<User> = new Result2<User>(true, {id: 1, name: 'tom'});
-console.log(r2.success);
-console.log(r2.data);
+// console.log(r2.success);
+// console.log(r2.data);
 
 // 泛型约束
 

@@ -10,6 +10,8 @@ import {MessageComponent} from './ucenter/message/message.component';
 import {CommentComponent} from './ucenter/comment/comment.component';
 import {CollectionComponent} from './ucenter/collection/collection.component';
 import {AccountComponent} from './ucenter/account/account.component';
+import {MyCompsModule} from '../common/my-comps/my-comps.module';
+import {MenuComponent} from '../common/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -20,9 +22,12 @@ import {AccountComponent} from './ucenter/account/account.component';
     MessageComponent,
     CommentComponent,
     CollectionComponent,
-    AccountComponent],
+    AccountComponent,
+    MenuComponent,
+  ],
   imports: [
     CommonModule,
+    // MyCompsModule,
     MainRoutingModule
   ]
 })

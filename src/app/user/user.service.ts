@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {LoginUser} from './login/login-user';
 import {HttpClient} from '@angular/common/http';
 import {Result} from '../common/result';
-import {catchError, map} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {RegisterUser} from './register/register-user';
 
@@ -28,7 +28,7 @@ export class UserService {
     return this.http
       .post<Result<User>>(this.url + 'login', user)
       .pipe(
-        map(this.handleLogin),
+        map(this.handleLogin.bind(this)),
         catchError(error => of(false))
       );
   }
@@ -62,22 +62,47 @@ export class UserService {
 
   // 注册方法
   register(user: RegisterUser) {
-    return this.http.post<Result<User>>(this.url + 'register', {
-      phone: user.phone,
-      password: user.password
-    })
+    return this
+      .http.post<Result<User>>(this.url + 'register', {
+        phone: user.phone,
+        password: user.password
+      })
       .pipe(
-        map(this.handleLogin),
+        map(this.handleLogin.bind(this)),
         catchError(error => of(false))
       );
   }
 
   // 判断当前用户是否登录
   isLogin() {
-    return this.http.post<Result<User>>(this.url + 'is-login', null)
+    return this.http
+      .post<Result<User>>(this.url + 'is-login', null)
       .pipe(
-        map(this.handleLogin),
+        map(this.handleLogin.bind(this)),
         catchError(error => of(false))
       );
   }
+
+  //  注销
+  logout() {
+    return this.http.post(this.url + 'logout', null)
+      .pipe(
+        // tap((result: Result<any>) => {
+        //   if (result.success) {
+        //     // 清除服务中缓存信息
+        //     this.user = null;
+        //   }
+        // }),
+        // map转换数据格式
+        map((result: Result<any>) => {
+          if (result.success) {
+            // 清除服务中缓存信息
+            this.user = null;
+            return true;
+          }
+          return false;
+        })
+      );
+  }
+
 }
