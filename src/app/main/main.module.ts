@@ -23,11 +23,11 @@ import {MenuComponent} from '../common/menu/menu.component';
     CommentComponent,
     CollectionComponent,
     AccountComponent,
-    MenuComponent,
+    // MenuComponent,
   ],
   imports: [
     CommonModule,
-    // MyCompsModule,
+    MyCompsModule,
     MainRoutingModule
   ]
 })
