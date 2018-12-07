@@ -1,0 +1,13 @@
+<p>
+  <app-child uname="tom"></app-child>
+  <app-child [uname]="uname" #child></app-child>
+
+  <app-child *ngFor="let name of names" [uname]="name"
+             (change)="onchange($event)"></app-child>
+
+  <input type="text" #inp>
+  <button (click)="uname=inp.value">变更</button>
+</p>
+<div>{{child.uname}}</div>
+
+<app-child2></app-child2>

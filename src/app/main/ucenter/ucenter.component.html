@@ -3,12 +3,16 @@
     <div class="avatar"
          (mouseover)="isHidden=false"
          (mouseout)="isHidden=true">
-      <img src="http://kkbconsole2.kaikeba.com/statics/images/avatar_100_100.png"
+      <img [src]="avatar"
            width="100" height="100">
       <div class="avatar-mask"
-           [hidden]="isHidden">更换头像</div>
+           [hidden]="isHidden">更换头像
+      </div>
+      <input type="file" ngFileSelect
+             (uploadOutput)="onUploadOutput($event)"
+             [uploadInput]="uploadInput">
     </div>
-    <div class="username">aa</div>
+    <div class="username">{{username}}</div>
   </div>
   <div class="left-nav">
     <a routerLinkActive="active" routerLink="course">我的课程</a>

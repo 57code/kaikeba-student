@@ -1,0 +1,10 @@
+<div>
+  <p>
+    {{uname}}
+    <button (click)="changeName()">我要改名</button>
+  </p>
+  <ul>
+    <li *ngFor="let log of changeLog" style="color: red;font-size: 10px;">{{log}}</li>
+  </ul>
+</div>
+

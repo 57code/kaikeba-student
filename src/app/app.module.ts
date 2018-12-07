@@ -8,6 +8,7 @@ import {UserModule} from './user/user.module';
 import {RxjsModule} from './rxjs/rxjs.module';
 import {HomeComponent} from './home/home.component';
 import {MainModule} from './main/main.module';
+import {CompCommunicateModule} from './comp-communicate/comp-communicate.module';
 
 @NgModule({
   declarations: [// 声明组件/管道/指令
@@ -18,6 +19,7 @@ import {MainModule} from './main/main.module';
     HttpClientModule,
     UserModule,
     RxjsModule,
+    CompCommunicateModule,
     MainModule,
     AppRoutingModule
   ],

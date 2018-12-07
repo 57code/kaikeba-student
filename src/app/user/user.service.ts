@@ -8,7 +8,8 @@ import {RegisterUser} from './register/register-user';
 
 export interface User {
   id: number;
-  name: string;
+  username: string;
+  avatar?: string;
 }
 
 @Injectable({

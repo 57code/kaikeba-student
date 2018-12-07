@@ -10,8 +10,9 @@ import {MessageComponent} from './ucenter/message/message.component';
 import {CommentComponent} from './ucenter/comment/comment.component';
 import {CollectionComponent} from './ucenter/collection/collection.component';
 import {AccountComponent} from './ucenter/account/account.component';
-import {MyCompsModule} from '../common/my-comps/my-comps.module';
+import {MyCompsModule} from '../common/my-comps.module';
 import {MenuComponent} from '../common/menu/menu.component';
+import {NgxUploaderModule} from 'ngx-uploader';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {MenuComponent} from '../common/menu/menu.component';
   imports: [
     CommonModule,
     MyCompsModule,
-    MainRoutingModule
+    MainRoutingModule,
+    NgxUploaderModule
   ]
 })
 export class MainModule {

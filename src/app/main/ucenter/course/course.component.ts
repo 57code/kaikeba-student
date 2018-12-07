@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Course, CourseService} from './course.service';
 
 @Component({
   selector: 'app-course',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit {
+  isHidden = false;
+  private courses: Course[];
 
-  constructor() { }
+  constructor(private cs: CourseService) {
+  }
 
   ngOnInit() {
+    this.cs.getMyCourses().subscribe(
+      result => this.courses = result
+    );
   }
 
 }
