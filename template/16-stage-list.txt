@@ -1,0 +1,93 @@
+<app-box style="display: block;margin: 20px 0;">
+  <div class="tabs">
+    <a (click)="tab = 'path'" [ngClass]="{active: tab=='path'}">学习路径</a>
+    <a (click)="tab = 'rank'" [ngClass]="{active: tab=='rank'}">班级排名</a>
+    <a (click)="tab = 'teacher'" [ngClass]="{active: tab=='teacher'}">我的老师</a>
+    <a (click)="tab = 'achievement'" [ngClass]="{active: tab=='achievement'}">学习成就</a>
+  </div>
+  <div class="tab-content" [ngSwitch]="tab">
+    <div class="path-list" *ngSwitchCase="'path'">
+      path works
+    </div>
+    <div class="rank-list" *ngSwitchCase="'rank'">
+      rank works
+    </div>
+		    ......
+  </div>
+</app-box>
+
+
+---------------样式----------------
+.tabs{ margin-top: 20px; padding-left: 4px;  height: 60px;
+  background: #fff;  border-bottom: 1px solid #e9e9e9;}
+.tabs a{ float: left;  margin: 0 20px;  width: 64px;  height: 58px;
+  line-height: 58px; text-align: center; font-size: 14px; cursor: pointer;}
+.tabs a:hover{ text-decoration: none;}
+.tabs a.active{ color: #00aae5; border-bottom: 2px solid #00aae5;}
+
+
+
+--------------------path-list-item---------------------
+<div class="path-item" [class.done]="stage.state==1"
+     [id]="'path-item-'+stage.id">
+  <div class="path-item-header" (click)="open = !open">
+    <h1>{{stage.name}}：{{stage.title}}</h1>
+  </div>
+  <div class="path-item-body" *ngIf="open">
+    <div class="card" (mouseenter)="showButton=true" (mouseleave)="showButton=false">
+      <div class="card-header">
+        课程学习
+        <span *ngIf="stage.state!=0" class="card-state">{{stage.state==1?'进行中':'已完成'}}</span>
+      </div>
+      <div class="card-body">
+        <p>{{stage.sub_title}}</p>
+        <div class="box left">
+          <p>0/1</p>
+          <span>视频课程</span>
+        </div>
+        <div class="box right">
+          <p>0/0</p>
+          <span>随堂练习</span>
+        </div>
+        <a class="btn-study" *ngIf="showButton">开始学习</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+----------------------样式-------------------------
+.path-item { border-bottom: 1px solid #e2e2e2;}
+.path-item-body { padding-left: 20px; padding-bottom: 20px;}
+.path-item-header { height: 100px; padding-top: 20px; cursor: pointer;}
+.path-item-header h1 { margin: 20px; padding: 0 10px; font-size: 15px;
+  color: #696a70; font-weight: normal; border-left: 4px solid #d2d2d2;}
+.card { position: relative; width: 238px; height: 168px; background: #f5f5f5;}
+.card-header { padding-left: 15px; height: 34px; color: #696a70;
+  line-height: 34px; font-size: 14px; font-weight: normal;
+  background: #f2f1f1; border-bottom: 1px solid #e9e9e9;}
+span.card-state { float: right; padding: 0 4px; height: 18px; line-height: 18px;
+  font-size: 12px; margin-right: 15px; background: #b7b9bd; color: #fff;
+  border-radius: 2px; margin-top: 8px;}
+.box { box-sizing: border-box; padding: 10px;
+  width: 100px; height: 50px; font-size: 12px; color: #b7b9bd;
+  background: #e9e9e9; border-radius: 2px;}
+.left, .right { float: left;}
+.right { margin-left: 10px;}
+.card-body { padding: 14px;}
+.card-body > p { margin: 0 10px 30px 0;}
+/*跳转按钮*/
+.btn-study{ position: absolute; bottom: 20px; left: 14px;
+  width: 210px; height: 50px; line-height: 50px; text-align: center;
+  font-size: 14px; color: #fff; background: #b7b9bd; cursor: pointer;
+  z-index: 2; border-radius: 2px; text-decoration: none;}
+/*完成状态*/
+.done .card-header { background: #d0f1e3; color: #48c490;}
+.done span.card-state { background: #48c490;}
+.done .btn-study { background: #48c490;}
+
+
+
+
+
+

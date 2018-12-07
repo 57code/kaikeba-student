@@ -1,0 +1,117 @@
+----------------------管理stage、status，admin.js----------------------------
+router.get('/stage', async (req, res, next) => {
+    const clazzes = await query('select * from clazz');
+    res.render('admin/stage', {layout: 'layout-admin', clazzes, nav: 'stage'})
+});	
+
+
+router.post('/stage', async (req, res, next) => {
+    try {
+        // 插入学习阶段
+        const result = await query('INSERT INTO stage SET ?', req.body);
+        if (result.affectedRows > 0) {
+            // 根据班级id获取该班所有学员id
+            const stageId = result.insertId;
+            const ids = await query('SELECT user_id FROM user_clazz WHERE clazz_id=?', req.body.clazz_id);
+            console.log(stageId, ids);
+            // 为每位学员添加学习状态
+            for (let o of ids) {
+                await query('INSERT INTO status SET ?',
+                    {user_id: o.user_id, stage_id: stageId})
+            }
+            res.render('admin/result', {layout: 'layout-admin', message: '插入成功'})
+        } else {
+            res.render('admin/result', {layout: 'layout-admin', message: '插入阶段失败'})
+        }
+    } catch (error) {
+        console.log(error);
+        res.render('admin/result', {layout: 'layout-admin', message: '服务器内部错误'})
+    }
+});
+
+
+
+--------------------------------重构：事务处理---------------------------------
+----------db.js----------
+query2: function (conn, sql, value) {
+        return new Promise((resolve, reject) => {
+            conn.query(sql, value, (err, results) => {
+                if (err) reject(err);
+                else resolve(results);
+            })
+        });
+    },
+    getConnection: function () {
+        return new Promise((resolve, reject) => {
+            pool.getConnection((err, conn) => {
+                if (err) reject(err);
+                else resolve(conn);
+            })
+        })
+    },
+    beginTransaction: function (conn) {
+        return new Promise((resolve, reject) => {
+            conn.beginTransaction(err => {
+                if (err) reject(err);
+                else resolve();
+            });
+        })
+    },
+    rollback: function (conn) {
+        return new Promise((resolve, reject) => {
+            conn.rollback(resolve);
+            conn.end();
+        });
+    },
+    commit: function (conn) {
+        return new Promise((resolve, reject) => {
+            conn.commit(err => {
+                if (err) reject(err);
+                else resolve();
+            });
+            conn.end();
+        });
+    }
+
+-------------post方法更新--------------
+router.post('/stage', async (req, res, next) => {
+    let conn;
+    try {
+        // 获取连接
+        conn = await getConnection();
+        // 开启事务
+        await conn.beginTransaction(conn);
+        // 插入学习阶段
+        const result = await query2(conn, 'INSERT INTO stage SET ?', req.body);
+        if (result.affectedRows > 0) {
+            // 根据班级id获取该班所有学员id
+            const stageId = result.insertId;
+            const ids = await query2(conn, 'SELECT user_id FROM user_clazz WHERE clazz_id=?', req.body.clazz_id);
+
+            // 为每位学员添加学习状态
+            for (let o of ids) {
+                await query2(conn, 'INSERT INTO status SET ?',
+                    {user_id: o.user_id, stage_id: stageId})
+            }
+            // 没有错误，提交事务
+            await commit(conn);
+
+            // 提示操作成功
+            res.render('admin/result', {layout: 'layout-admin', message: '插入成功'})
+        } else {
+            res.render('admin/result', {layout: 'layout-admin', message: '插入阶段失败'})
+        }
+    } catch (error) {
+        // 回滚
+        await rollback(conn);
+        res.render('admin/result', {layout: 'layout-admin', message: '服务器内部错误'})
+    }
+});
+
+
+
+
+
+
+
+

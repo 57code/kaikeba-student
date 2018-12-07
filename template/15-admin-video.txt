@@ -1,0 +1,29 @@
+-----------------路由-----------------
+router.get('/video', async (req, res, next) => {
+    const clazzes = await query('select * from clazz');
+    res.render('admin/video', {layout: 'layout-admin', clazzes, nav: 'video'})
+})
+
+router.get('/get-stage', async (req, res, next) => {
+    const stages = await query('select * from stage where clazz_id=?', req.query.clazzId);
+    res.json({success: true, data: stages});
+})
+
+const qs = require('qs'); // 使用qs才能解析req.body中的嵌套数据
+router.post('/video', async (req, res, next) => {
+    const body = qs.parse(req.body);
+    try {
+        for (let video of body.video) {
+            video.stage_id = body.stage_id;
+            await query('INSERT INTO video SET ?', video)
+        }
+		// 更新状态表中videos字段：
+await query('UPDATE status SET videos=? WHERE stage_id=?',
+    [body.video.length.toString(), body.stage_id]);
+res.render('admin/result', {
+		    layout: 'layout-admin', nav: 'video', message: '新增成功'})
+	      } catch (error) {
+res.render('admin/result', {
+		    layout: 'layout-admin', nav: 'video', message: '新增失败'})
+	      }
+	  })

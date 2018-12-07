@@ -1,0 +1,43 @@
+<div style="width: 50%;margin: 10px;">
+    <legend style="padding: 5px;">新增视频课程</legend>
+    <div class="form-group">
+        <select type="text" class="form-control" id="clazz_id">
+            <option value="0">---请先选择班级---</option>
+            {{#each clazzes}}
+                <option value="{{id}}">{{name}}</option>
+            {{/each}}
+        </select>
+    </div>
+</div>
+
+<form action="/admin/video" method="post" style="width: 50%;margin: 10px;">
+    <div class="form-group">
+        <label>所属阶段</label>
+        <select type="text" class="form-control stage_id" name="stage_id">
+        </select>
+    </div>
+</form>
+
+{{#extend 'jquery'}}
+    <script>
+        $('#clazz_id').change(function () {
+            if (this.value != 0) {
+                $.ajax({
+                    url: '/admin/get-stage',
+                    data: {clazzId: this.value},
+                    success: function (result) {
+                        if (result.success) {
+                            $('.stage_id').html('');
+                            for (var i = 0; i < result.data.length; i++) {
+                                var v = result.data[i];
+                                $('<option>').val(v.id)
+                                        .html(v.name+' '+v.title)
+                                        .appendTo('.stage_id');
+                            }
+                        }
+                    }
+                })
+            }
+        })
+    </script>
+{{/extend}}

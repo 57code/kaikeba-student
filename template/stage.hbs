@@ -1,0 +1,34 @@
+<!--表单-->
+<form action="/admin/stage" method="post" style="width: 50%;margin: 10px;">
+    <legend>新增课程阶段</legend>
+
+    <div class="form-group">
+        <label for="name">阶段名称</label>
+        <input type="text" class="form-control"
+               name="name" id="name" >
+    </div>
+
+    <div class="form-group">
+        <label for="title">标题</label>
+        <input type="text" class="form-control"
+               name="title" id="title">
+    </div>
+
+    <div class="form-group">
+        <label for="sub_title">子标题</label>
+        <input type="text" class="form-control"
+               name="sub_title" id="sub_title">
+    </div>
+
+    <div class="form-group">
+        <label for="sub_title">所属班级</label>
+        <select type="text" class="form-control"
+                name="clazz_id" id="clazz_id">
+            {{#each clazzes}}
+                <option value="{{id}}">{{name}} - {{phase}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">提交</button>
+</form>
