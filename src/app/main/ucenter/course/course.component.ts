@@ -15,7 +15,10 @@ export class CourseComponent implements OnInit {
 
   ngOnInit() {
     this.cs.getMyCourses().subscribe(
-      result => this.courses = result
+      result => {
+        console.log(result);
+        this.courses = result;
+      }
     );
   }
 

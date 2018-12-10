@@ -22,7 +22,7 @@ const routes: Routes = [
           {path: '', pathMatch: 'full', redirectTo: '/main/ucenter/course'}
         ]
       },
-      {path: 'course/:id', component: CourseComponent},
+      {path: 'course/:classId', component: CourseComponent},
       // /main/
       {path: '', pathMatch: 'full', redirectTo: '/main/ucenter'},
     ]

@@ -18,7 +18,7 @@
   </div>
 </div>
 
--------------------ÑùÊ½-------------------
+-------------------æ ·å¼-------------------
 .wrap {  width: 1200px;  margin: 40px auto;  display:flex;}
 .left {  flex: 3;}
 .right {  flex: 1.2;  margin-left: 20px;}
@@ -27,32 +27,31 @@
 .course-name {  position:absolute;  font-size: 20px;  color: #fff;  line-height: 36px;  top: 50%;  left: 0;  margin-top: -18px;  width: 100%;
   text-align:center;  z-index: 2;}
 
----------------------Ôö¼ÓÑ§Ï°¸Å¿öĞÅÏ¢------------------------
-<div class="pandect">
-  <div class="course-item">......</div>
+---------------------å¢åŠ å­¦ä¹ æ¦‚å†µä¿¡æ¯------------------------
+
   <div class="pandect-item">
     <p>
-      {{pandect?.study_time | st:'hours'}}<span>Ğ¡Ê±</span>
-      {{pandect?.study_time | st:'minutes'}}<span>·ÖÖÓ</span>
+      {{pandect?.study_time | st:'hours'}}<span>å°æ—¶</span>
+      {{pandect?.study_time | st:'minutes'}}<span>åˆ†é’Ÿ</span>
     </p>
-    <label>ÒÑÑ§Ê±³¤</label>
+    <label>å·²å­¦æ—¶é•¿</label>
   </div>
   <div class="pandect-item">
     <p>{{pandect?.training}}</p>
-    <label>Íê³ÉÊµÑµ</label>
+    <label>å®Œæˆå®è®­</label>
   </div>
   <div class="pandect-item">
     <p>{{pandect?.rank == 0 ? '--' : pandect?.rank}}</p>
-    <label>°à¼¶ÅÅÃû</label>
+    <label>ç­çº§æ’å</label>
   </div>
   <div class="pandect-item" style="padding: 0 50px">
     <p>{{pandect?.graduation_time | date:'yyyy-MM-dd'}}</p>
-    <label>Ô¤¼Æ±ÏÒµÊ±¼ä</label>
+    <label>é¢„è®¡æ¯•ä¸šæ—¶é—´</label>
   </div>
-</div>
 
 
-------------ÑùÊ½---------------
+
+------------æ ·å¼---------------
 .pandect { display: flex; align-items: center;}
 .pandect-item { text-align: center; height: 50px; padding: 0 20px;
   border-right: 1px solid #eee;}
@@ -71,7 +70,7 @@
 
 
 
-------------ÑùÊ½-----------------
+------------æ ·å¼-----------------
 span.dot { display: inline-block; width: 12px; height: 12px;
   border-radius: 12px; background: #ced0d5;
   position: relative; z-index: 2;}
@@ -89,5 +88,5 @@ a.stage-name:hover { text-decoration: none;}
 .stage.running:after { background: #e43e3e;}
 .stage.done:after { background: #48c490;}
 .stage.last:after { background: transparent;}
-.path { padding: 30px; /*Èç¹ûÒª×Ô¶¯»»ĞĞ*/ /*flex_wrap: wrap*/}
+.path { padding: 30px; /*å¦‚æœè¦è‡ªåŠ¨æ¢è¡Œ*/ /*flex_wrap: wrap*/}
 

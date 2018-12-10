@@ -1,3 +1,50 @@
-<p>
-  course works!
-</p>
+<div class="wrap">
+  <div class="left">
+    <!--学习概况总览-->
+    <app-box>
+      <div class="pandect">
+        <!--班级信息-->
+        <div class="course-item">
+          <img class="course-bg" width="222px" height="125px"
+               [src]="course?.poster">
+          <div class="shadow"></div>
+          <span class="course-name">{{course?.name}} {{course?.phase}}</span>
+        </div>
+        <!--概况-->
+        <div class="pandect-item">
+          <p>
+            {{pandect?.study_time | st:'hours'}}<span>小时</span>
+            {{pandect?.study_time | st:'minutes'}}<span>分钟</span>
+          </p>
+          <label>已学时长</label>
+        </div>
+        <div class="pandect-item">
+          <p>{{pandect?.training}}</p>
+          <label>完成实训</label>
+        </div>
+        <div class="pandect-item">
+          <p>{{pandect?.rank == 0 ? '--' : pandect?.rank}}</p>
+          <label>班级排名</label>
+        </div>
+        <div class="pandect-item" style="padding: 0 50px">
+          <p>{{pandect?.graduation_time | date:'yyyy-MM-dd'}}</p>
+          <label>预计毕业时间</label>
+        </div>
+      </div>
+
+      <!--学习路径列表-->
+      <div class="path">
+        <div class="stage" *ngFor="let s of stages; let isLast = last"
+             [ngClass]="{running: s.state==1, done: s.state==2, last: isLast}">
+          <span class="dot" [ngClass]="{running: s.state==1, done: s.state==2}"></span>
+          <a class="stage-name" [ngClass]="{running: s.state==1, done: s.state==2}">{{s.name}}</a>
+        </div>
+      </div>
+    </app-box>
+
+
+  </div>
+  <div class="right">
+    <app-box></app-box>
+  </div>
+</div>
