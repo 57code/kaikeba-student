@@ -1,7 +1,10 @@
+<!--表单-->
 <div style="width: 50%;margin: 10px;">
-    <legend style="padding: 5px;">新增视频课程</legend>
+    <legend style="padding: 5px;">新增视频课程
+        <input class="btn btn-default pull-right" id="addVideo" value="+" type="button"></legend>
     <div class="form-group">
-        <select type="text" class="form-control" id="clazz_id">
+        <select type="text" class="form-control"
+                name="clazz_id" id="clazz_id">
             <option value="0">---请先选择班级---</option>
             {{#each clazzes}}
                 <option value="{{id}}">{{name}}</option>
@@ -9,17 +12,42 @@
         </select>
     </div>
 </div>
-
 <form action="/admin/video" method="post" style="width: 50%;margin: 10px;">
+
     <div class="form-group">
         <label>所属阶段</label>
-        <select type="text" class="form-control stage_id" name="stage_id">
+        <select type="text" class="form-control stage_id"
+                name="stage_id">
         </select>
     </div>
+
+    <fieldset class="group">
+
+        <legend>视频1</legend>
+
+        <div class="form-group">
+            <label>名称</label>
+            <input type="text" class="form-control name"
+                   name="video[0][name]">
+        </div>
+
+        <div class="form-group">
+            <label>时长（分钟）</label>
+            <input type="number" class="form-control duration"
+                   name="video[0][duration]">
+        </div>
+
+        <input type="hidden" class="sort" value="0" name="video[0][sort]">
+    </fieldset>
+
+    <button type="submit" class="btn btn-primary">提交</button>
 </form>
 
 {{#extend 'jquery'}}
     <script>
+
+        var sort = 0;
+
         $('#clazz_id').change(function () {
             if (this.value != 0) {
                 $.ajax({
@@ -30,14 +58,23 @@
                             $('.stage_id').html('');
                             for (var i = 0; i < result.data.length; i++) {
                                 var v = result.data[i];
-                                $('<option>').val(v.id)
-                                        .html(v.name+' '+v.title)
-                                        .appendTo('.stage_id');
+                                $('<option>').val(v.id).html(v.name+' '+v.title).appendTo('.stage_id');
                             }
                         }
                     }
                 })
             }
+        })
+
+        $('#addVideo').click(function () {
+            var $group = $('.group:last');
+            var $clone = $group.clone();
+            sort++;
+            $clone.find('legend').text('视频'+(sort+1));
+            $clone.find('.name').prop('name', 'video['+sort+'][name]');
+            $clone.find('.duration').prop('name', 'video['+sort+'][duration]');
+            $clone.find('.sort').prop('name', 'video['+sort+'][sort]').val(sort);
+            $group.after($clone);
         })
     </script>
 {{/extend}}
