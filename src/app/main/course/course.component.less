@@ -1,0 +1,190 @@
+.wrap {
+  width: 1200px;
+  margin: 40px auto;
+  display: flex;
+}
+
+.left {
+  flex: 3;
+}
+
+.right {
+  flex: 1.2;
+  margin-left: 20px;
+}
+
+.course-item {
+  position: relative;
+  width: 222px;
+  height: 125px;
+}
+
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.course-name {
+  position: absolute;
+  font-size: 20px;
+  color: #fff;
+  line-height: 36px;
+  top: 50%;
+  left: 0;
+  margin-top: -18px;
+  width: 100%;
+  text-align: center;
+  z-index: 2;
+}
+
+.pandect {
+  display: flex;
+  align-items: center;
+}
+
+.pandect-item {
+  text-align: center;
+  height: 50px;
+  padding: 0 20px;
+  border-right: 1px solid #eee;
+}
+
+.pandect-item > label {
+  font-weight: normal;
+  color: silver;
+  font-size: 12px;
+}
+
+.pandect-item > p {
+  font-size: 16px;
+}
+
+span.dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 12px;
+  background: #ced0d5;
+  position: relative;
+  z-index: 2;
+}
+
+span.dot.running {
+  background: #e43e3e;
+}
+
+span.dot.done {
+  background: #48c490;
+}
+
+a.stage-name {
+  display: block;
+  color: #ced0d5;
+  cursor: pointer;
+  border: 1px solid #ced0d5;
+  padding: 0 4px;
+}
+
+a.stage-name.running {
+  color: #e43e3e;
+  border: 1px solid #e43e3e;
+}
+
+a.stage-name.done {
+  color: #48c490;
+  border: 1px solid #48c490;
+}
+
+.stage {
+  text-align: center;
+  position: relative;
+}
+
+.path {
+  display: flex;
+}
+
+a.stage-name:hover {
+  text-decoration: none;
+}
+
+.stage:after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  z-index: 2;
+  width: 100%;
+  height: 2px;
+  background: #ced0d5;
+}
+
+.stage.running:after {
+  background: #e43e3e;
+}
+
+.stage.done:after {
+  background: #48c490;
+}
+
+.stage.last:after {
+  background: transparent;
+}
+
+.path {
+  padding: 30px; /*如果要自动换行*/ /*flex_wrap: wrap*/
+}
+
+.tabs {
+  margin-top: 20px;
+  padding-left: 4px;
+  height: 60px;
+  background: #fff;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.tabs a {
+  float: left;
+  margin: 0 20px;
+  width: 64px;
+  height: 58px;
+  line-height: 58px;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.tabs a:hover {
+  text-decoration: none;
+}
+
+.tabs a.active {
+  color: #00aae5;
+  border-bottom: 2px solid #00aae5;
+}
+
+.header {
+  position: relative;
+  padding: 0 20px 0 15px;
+  height: 60px;
+  line-height: 60px;
+  border-bottom: 1px solid #e9e9e9;
+  /*这里使用了Less嵌套语法，请重命名当前文件后缀名为less*/
+  .title {
+    font-size: 16px;
+    line-height: 22px;
+    color: #242629;
+  }
+  .time {
+    float: right;
+    margin-top: 21px;
+    margin-left: 10px;
+    font-size: 13px;
+    line-height: 18px;
+    color: #b7b9bd;
+  }
+}

@@ -1,0 +1,11 @@
+<h3>绑定innerHTML</h3>
+<p [innerHTML]="htmlSnippet"></p>
+
+<h3>插值绑定</h3>
+<p>{{htmlSnippet}}</p>
+
+
+<h4>不可信</h4>
+<p><a [href]="dangerousUrl">dangerousUrl</a></p>
+<h4>可信</h4>
+<p><a [href]="trustedUrl">trustedUrl</a></p>

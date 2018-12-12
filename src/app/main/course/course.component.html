@@ -37,14 +37,47 @@
         <div class="stage" *ngFor="let s of stages; let isLast = last"
              [ngClass]="{running: s.state==1, done: s.state==2, last: isLast}">
           <span class="dot" [ngClass]="{running: s.state==1, done: s.state==2}"></span>
-          <a class="stage-name" [ngClass]="{running: s.state==1, done: s.state==2}">{{s.name}}</a>
+          <a class="stage-name" [ngClass]="{running: s.state==1, done: s.state==2}"
+             routerLink="./" [fragment]="'path-item-'+s.id">{{s.name}}</a>
         </div>
       </div>
     </app-box>
 
+    <!--学习路径详情-->
+    <app-box style="display: block;margin: 20px 0;">
+      <div class="tabs">
+        <a (click)="tab = 'path'" [ngClass]="{active: tab=='path'}">学习路径</a>
+        <a (click)="tab = 'rank'" [ngClass]="{active: tab=='rank'}">班级排名</a>
+        <a (click)="tab = 'teacher'" [ngClass]="{active: tab=='teacher'}">我的老师</a>
+        <a (click)="tab = 'achievement'" [ngClass]="{active: tab=='achievement'}">学习成就</a>
+      </div>
+      <div class="tab-content" [ngSwitch]="tab">
+        <div class="path-list" *ngSwitchCase="'path'">
+          <app-path-item *ngFor="let s of stages" [stage]="s"></app-path-item>
+        </div>
+        <div class="rank-list" *ngSwitchCase="'rank'">
+          rank works
+        </div>
+        <!--省略其他两个tab内容-->
+      </div>
+    </app-box>
 
   </div>
   <div class="right">
-    <app-box></app-box>
+    <app-box>
+      <div class="header">
+        <span>学习计划</span>
+        <!--<span>{{today | date:'fullDate'}}</span>-->
+        <span>{{today | date:'yyyy年MM月dd日 EEEE'}}</span>
+      </div>
+      <div class="content">
+        <app-plan-item>
+          <a>往期课程会看</a>
+        </app-plan-item>
+        <app-plan-item>
+          <a href="">进入直播间</a>
+        </app-plan-item>
+      </div>
+    </app-box>
   </div>
 </div>

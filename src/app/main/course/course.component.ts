@@ -5,12 +5,18 @@ import {Course, CourseService, Pandect, Stage} from '../ucenter/course/course.se
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
-  styleUrls: ['./course.component.css']
+  styleUrls: ['./course.component.less']
 })
 export class CourseComponent implements OnInit {
   course: Course = null;
   pandect: Pandect = null;
   stages: Stage[] = null;
+
+  // 页签
+  tab = 'path';
+
+  // 当前日期
+  today = new Date();
 
   constructor(private route: ActivatedRoute,
               private cs: CourseService) {
@@ -38,6 +44,16 @@ export class CourseComponent implements OnInit {
         }
       );
     });
+
+    // 监听hash变化, 跳转至对应元素位置
+    this.route.fragment.subscribe(fragment => {
+      const elem = document.querySelector('#' + fragment);
+      if (elem) {
+        // 跳转至对应id元素位置
+        elem.scrollIntoView();
+      }
+    });
+
   }
 
 }

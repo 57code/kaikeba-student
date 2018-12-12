@@ -1,0 +1,27 @@
+<div class="path-item"
+     [class.done]="stage.state==1"
+     [id]="'path-item-'+stage.id">
+  <div class="path-item-header" (click)="open = !open">
+    <h1>{{stage.name}}：{{stage.title}}</h1>
+  </div>
+  <div class="path-item-body" *ngIf="open">
+    <div class="card" (mouseenter)="showButton=true" (mouseleave)="showButton=false">
+      <div class="card-header">
+        课程学习
+        <span *ngIf="stage.state!=0" class="card-state">{{stage.state==1?'进行中':'已完成'}}</span>
+      </div>
+      <div class="card-body">
+        <p>{{stage.sub_title}}</p>
+        <div class="box left">
+          <p>0/1</p>
+          <span>视频课程</span>
+        </div>
+        <div class="box right">
+          <p>0/0</p>
+          <span>随堂练习</span>
+        </div>
+        <a class="btn-study" *ngIf="showButton">开始学习</a>
+      </div>
+    </div>
+  </div>
+</div>
