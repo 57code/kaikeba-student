@@ -4,10 +4,8 @@ import {LOCALE_ID, NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
-import {UserModule} from './user/user.module';
 import {RxjsModule} from './rxjs/rxjs.module';
 import {HomeComponent} from './home/home.component';
-import {MainModule} from './main/main.module';
 import {CompCommunicateModule} from './comp-communicate/comp-communicate.module';
 import {registerLocaleData} from '@angular/common';
 import zh from '@angular/common/locales/zh';
@@ -23,11 +21,11 @@ registerLocaleData(zh);
   imports: [ // 导入ng模块
     BrowserModule,
     HttpClientModule,
-    UserModule,
+    // UserModule,
     RxjsModule,
     SecureModule,
     CompCommunicateModule,
-    MainModule,
+    // MainModule,
     AppRoutingModule
   ],
   providers: [{provide: LOCALE_ID, useValue: 'zh'}],
