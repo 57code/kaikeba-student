@@ -29,12 +29,12 @@ export class UserService {
     return this.http
       .post<Result<User>>(this.url + 'login', user)
       .pipe(
-        map(this.handleLogin.bind(this)),
+        map(this.handleLogin),
         catchError(error => of(false))
       );
   }
 
-  private handleLogin(r: Result<User>) {
+  private handleLogin = (r: Result<User>) => {
     if (r.success) {
       // 缓存用户信息
       this.user = r.data;
@@ -69,7 +69,7 @@ export class UserService {
         password: user.password
       })
       .pipe(
-        map(this.handleLogin.bind(this)),
+        map(this.handleLogin),
         catchError(error => of(false))
       );
   }
@@ -79,7 +79,7 @@ export class UserService {
     return this.http
       .post<Result<User>>(this.url + 'is-login', null)
       .pipe(
-        map(this.handleLogin.bind(this)),
+        map(this.handleLogin),
         catchError(error => of(false))
       );
   }
